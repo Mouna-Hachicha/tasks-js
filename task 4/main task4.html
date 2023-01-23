@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       body{
+        text-align: center;
+       }
+    </style>
+</head>
+<body>
+
+<h2>Interface Corona</h2>
+<form>
+  <label for="name">Nom et prénom :</label>
+  <input type="text" id="name" name="name">
+  <br>
+  <button type="button" id="add" onclick="ajout()">Ajouter</button>
+</form>
+<div>
+  <h3>Enregistrés</h3>
+  <ul id="enregistres-list">
+  </ul>
+</div>
+<div>
+  <h3>Vaccinés</h3>
+  <ul id="vaccines-list">
+  </ul>
+</div>
+
+<script>
+
+function ajout() {
+  let name = document.getElementById("name").value;
+  let enregistresList = document.getElementById("enregistres-list");
+  let newPerson = document.createElement("li");
+  newPerson.innerHTML = name + '<button type="button" onclick="vacciner(this)">Vacciné(e)</button>';
+  enregistresList.appendChild(newPerson);
+  document.getElementById("name").value = "";
+}
+
+function vacciner(btn) {
+  let person = btn.parentNode;
+  let vaccinesList = document.getElementById("vaccines-list");
+  let newPerson = document.createElement("li");
+  newPerson.innerHTML = person.innerHTML + '<button type="button" style="color:red" onclick="remove(this)">Supprimer</button>';
+  vaccinesList.appendChild(newPerson);
+  person.remove();
+}
+
+function remove(btn) {
+  let person = btn.parentNode;
+  person.remove();
+}
+
+</script>
+
+</body>
+</html>

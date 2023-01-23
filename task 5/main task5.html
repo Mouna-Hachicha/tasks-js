@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      body{
+        text-align: center;
+      }
+    </style>
+</head>
+<body>
+     <h2>Interface Admin</h2>
+    <form>
+
+  <input type="text" id="name" name="name">
+  <br>
+
+  <input type="file" id="photo" name="photo">
+  <br>
+  <button type="button" id="submit" onclick="addPost()">Poster</button>
+    </form>
+<div>
+  <h2>Étudiants</h2>
+  <ul id="student-list">
+  </ul>
+</div>
+
+
+<script>
+
+ function handleFile() {
+  let input = document.getElementById("photo");
+  let preview = document.getElementById("preview");
+  let file = input.files[0];
+  let reader = new FileReader();
+  
+  reader.onloadend = function() {
+    preview.src = reader.result;
+  }
+  
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    preview.src = "";
+  }
+}
+
+function handleChange() {
+  let name = document.getElementById("name").value;
+  localStorage.setItem("name", name);
+}
+
+function addPost() {
+  let name = localStorage.getItem("name");
+  let photo = document.getElementById("preview").src;
+  let list = document.getElementById("student-list");
+  
+  let newStudent = document.createElement("li");
+  newStudent.innerHTML = '<button type="button" onclick="removePost(this)">Supprimer</button>'+ name + '<img src="' + photo + '" style="width:100px; height:100px;">'  ;
+  list.appendChild(newStudent);
+ 
+  document.getElementById("name").value = "";
+  document.getElementById("photo").value = "";
+  document.getElementById("preview").src = "";
+}
+
+</script>
+
+</body>
+</html>
